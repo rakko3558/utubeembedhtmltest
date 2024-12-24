@@ -7,6 +7,30 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <script>
+		function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+		
+		function embedVideo(videoId) {
+            const container = document.getElementById('video-container');
+            if (!videoId) {
+                videoId = document.getElementById('video-id').value.trim();
+            }
+            if (videoId) {
+                const iframe = `<iframe 
+                    src="https://www.youtube.com/embed/${videoId}?controls=0&autoplay=1&modestbranding=1&rel=0&showinfo=0&loop=0&fs=0&hl=zh&wmode=transparent&cc_load_policy=1&enablejsapi=1" 
+                    title="YouTube video player" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>`;
+                container.innerHTML = iframe;
+            } else {
+                alert('Please enter a valid YouTube Video ID.');
+            }
+        }
+		
+
 function controlVideo(vidFunc) {
   var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
   iframe.postMessage(
@@ -17,7 +41,7 @@ function controlVideo(vidFunc) {
 </script>
 <body>
     <div id="video-container"></div>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4tPAY5n40c0?rel=0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+!--<iframe width="560" height="315" src="https://www.youtube.com/embed/4tPAY5n40c0?rel=0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>--!
 
 <br><br>
 <button class="btn" onClick="controlVideo('pauseVideo');">Pause</button>
