@@ -1,63 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen YouTube Video</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; 
-        }
+<iframe id="ytplayer" type="text/html"
+        width="640" height="360"
+        src="https://www.youtube.com/embed/W-H6v6b1hu4?enablejsapi=1"
+        frameborder="0"></iframe>
 
-    
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
-</head>
-<body>
-	 <div id="video-container">
-        <!-- The iframe will be dynamically added here -->
-    </div>
-	<script>
-		function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-		
-		function embedVideo(videoId) {
-            const container = document.getElementById('video-container');
-            if (!videoId) {
-                videoId = document.getElementById('video-id').value.trim();
-            }
-            if (videoId) {
-                const iframe = `<iframe id="ytplayer"
-                    src="https://www.youtube.com/embed/${videoId}?controls=0&modestbranding=1&?autoplay=1&rel=0&showinfo=0&loop=0&fs=0&hl=zh&wmode=transparent&cc_load_policy=1&enablejsapi=1&widgetid=1" 
-                      title="YouTube video player"
- 
-  allowfullscreen>
-                </iframe>`;
-                container.innerHTML = iframe;
-            } else {
-                alert('Please enter a valid YouTube Video ID.');
-            }
-        }
-		
-		 const videoIdFromUrl = getQueryParam('videoId');
-        if (videoIdFromUrl) {
-            embedVideo(videoIdFromUrl);
-        }
-
- var player;
+<script>
+  var player;
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytplayer', {
       events: {
@@ -68,6 +15,5 @@
   function onPlayerReady(event) {
     event.target.pauseVideo(); // 控制暫停
   }
-	</script>
-</body>
-</html>
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
