@@ -3,10 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Player</title>
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <title>Fullscreen YouTube Video</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+        }
+
+    
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
-<script>
+<body>
+	 <div id="video-container">
+        <!-- The iframe will be dynamically added here -->
+    </div>
+	<script>
 		function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
@@ -30,22 +52,24 @@
             }
         }
 		
-getQueryParam('videoId');
-function controlVideo(vidFunc) {
-  var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
-  iframe.postMessage(
-    '{"event":"command","func":"' + vidFunc + '","args":""}',
-    "*"
-  );
-}
-</script>
-<body>
-    <div id="video-container"></div>
+
+        function onYouTubeIframeAPIReady() {
+            const videoIdFromUrl = getQueryParam('videoId');
+            if (videoIdFromUrl) {
+                console.log('Player is ready');
+                event.target.pauseVideo();
+                };
+            }
+        }
 
 
-<br><br>
-<button class="btn" onClick="controlVideo('pauseVideo');">Pause</button>
-<button class="btn" onClick="controlVideo('stopVideo');">Stop</button>
-<button class="btn" onClick="controlVideo('playVideo');">Play</button>
+      
+		const videoIdFromUrl = getQueryParam('videoId');
+        if (videoIdFromUrl) {
+            embedVideo(videoIdFromUrl);
+			onYouTubeIframeAPIReady();
+        }
+	</script>
+    
 </body>
 </html>
