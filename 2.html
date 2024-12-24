@@ -57,20 +57,14 @@
             const videoIdFromUrl = getQueryParam('videoId');
             if (videoIdFromUrl) {
                 embedVideo(videoIdFromUrl);
-                player = new YT.Player('ytplayer', {
-                    events: {
-                        'onReady': onPlayerReady
-                    }
+                console.log('Player is ready');
+                event.target.pauseVideo();
                 });
             }
         }
 
 
-        function onPlayerReady(event) {
-            console.log('Player is ready');
-            event.target.pauseVideo(); // Example: Automatically pause video when ready
-        }
-		
+      
 		const videoIdFromUrl = getQueryParam('videoId');
         if (videoIdFromUrl) {
             embedVideo(videoIdFromUrl);
