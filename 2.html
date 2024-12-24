@@ -6,30 +6,22 @@
     <title>YouTube Player</title>
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
+<script>
+function controlVideo(vidFunc) {
+  var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
+  iframe.postMessage(
+    '{"event":"command","func":"' + vidFunc + '","args":""}',
+    "*"
+  );
+}
+</script>
 <body>
     <div id="video-container"></div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4tPAY5n40c0?rel=0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-    <script>
-        let player;
-
-        // 加載 YouTube IFrame API 並初始化播放器
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('video-container', {
-                height: '360',
-                width: '640',
-                videoId: 'zNOe2fK1hM0', // 替換為您的影片 ID
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
-
-        // 當播放器準備就緒時
-        function onPlayerReady(event) {
-            console.log('Player ready');
-            // 使用 API 播放影片
-            player.playVideo();
-        }
-    </script>
+<br><br>
+<button class="btn" onClick="controlVideo('pauseVideo');">Pause</button>
+<button class="btn" onClick="controlVideo('stopVideo');">Stop</button>
+<button class="btn" onClick="controlVideo('playVideo');">Play</button>
 </body>
 </html>
