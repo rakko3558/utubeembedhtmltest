@@ -13,7 +13,6 @@
             overflow: hidden; 
         }
 
-    
         iframe {
             position: absolute;
             top: 0;
@@ -25,20 +24,20 @@
     </style>
 </head>
 <body>
-	 <div id="video-container">
+    <div id="video-container">
         <!-- The iframe will be dynamically added here -->
     </div>
-	<script>
-		function getQueryParam(param) {
+
+    <script>
+        // Get query parameter value from URL
+        function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
-		
-		function embedVideo(videoId) {
+
+        // Embed the YouTube video based on videoId
+        function embedVideo(videoId) {
             const container = document.getElementById('video-container');
-            if (!videoId) {
-                videoId = document.getElementById('video-id').value.trim();
-            }
             if (videoId) {
                 const iframe = `<iframe 
                     src="https://www.youtube.com/embed/${videoId}?controls=0&autoplay=1&modestbranding=1&rel=0&showinfo=0&loop=0&fs=0&hl=zh&wmode=transparent&cc_load_policy=1&enablejsapi=1" 
@@ -51,25 +50,24 @@
                 alert('Please enter a valid YouTube Video ID.');
             }
         }
-		
 
+        // Load YouTube Iframe API script dynamically
+        function loadYouTubeIframeAPI() {
+            const script = document.createElement('script');
+            script.src = "https://www.youtube.com/iframe_api";
+            document.body.appendChild(script);
+        }
+
+        // Callback when YouTube API is ready
         function onYouTubeIframeAPIReady() {
             const videoIdFromUrl = getQueryParam('videoId');
             if (videoIdFromUrl) {
                 embedVideo(videoIdFromUrl);
-                console.log('Player is ready');
-                event.target.pauseVideo();
-                };
             }
-        
-
-
-      
-		const videoIdFromUrl = getQueryParam('videoId');
-        if (videoIdFromUrl) {
-            embedVideo(videoIdFromUrl);
         }
-	</script>
-    
+
+        // Load the YouTube Iframe API
+        loadYouTubeIframeAPI();
+    </script>
 </body>
 </html>
