@@ -40,35 +40,31 @@
                 videoId = document.getElementById('video-id').value.trim();
             }
             if (videoId) {
-                const iframe = `<iframe 
+                const iframe1 = `<iframe 
                     src="https://www.youtube.com/embed/${videoId}?controls=0&autoplay=1&modestbranding=1&rel=0&showinfo=0&loop=0&fs=0&hl=zh&wmode=transparent&cc_load_policy=1&enablejsapi=1" 
                     title="YouTube video player" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowfullscreen>
                 </iframe>`;
-                container.innerHTML = iframe;
+                container.innerHTML = iframe1;
             } else {
                 alert('Please enter a valid YouTube Video ID.');
             }
         }
 		
-
-        function onYouTubeIframeAPIReady() {
-            const videoIdFromUrl = getQueryParam('videoId');
-            if (videoIdFromUrl) {
-                console.log('Player is ready');
-                event.target.pauseVideo();
-                };
-            
-        }
-
-
-      
+		function controlVideo(vidFunc) {
+		  var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
+		  iframe.postMessage(
+			'{"event":"command","func":"' + vidFunc + '","args":""}',
+			"*"
+		  );
+		}
+		
 		const videoIdFromUrl = getQueryParam('videoId');
         if (videoIdFromUrl) {
             embedVideo(videoIdFromUrl);
-			onYouTubeIframeAPIReady();
         }
+		
 	</script>
     
 </body>
