@@ -51,7 +51,9 @@
                 alert('Please enter a valid YouTube Video ID.');
             }
         }
-		
+		function getContentText() {
+            return ("Hi");
+        }
 		function controlVideo(vidFunc) {
 		  var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
 		  iframe.postMessage(
