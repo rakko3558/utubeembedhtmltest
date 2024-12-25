@@ -52,7 +52,7 @@
             }
         }
 		function getContentText() {
-            return console.log('Hi');;
+            return console.log('Hi');
         }
 		function controlVideo(vidFunc) {
 		  var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
@@ -62,6 +62,14 @@
 		  );
 		}
 		
+function videoEvent(){
+	var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
+		  iframe.addEventListene("ended", (event) => {
+  console.log(
+    "Video stopped either because it has finished playing or no further data is available.",
+  );
+}
+
 		const videoIdFromUrl = getQueryParam('videoId');
         if (videoIdFromUrl) {
             embedVideo(videoIdFromUrl);
